@@ -12,7 +12,7 @@ React: Biblioteca JavaScript utilizada para a construção do frontend.
 Bootstrap: Framework CSS utilizado para criar uma interface de usuário moderna e responsiva.
 SOLID: Princípios de design de software utilizados para garantir a manutenibilidade e extensibilidade do código.
 Injeção de Dependência: Técnica utilizada para desacoplar componentes e facilitar a modularidade do sistema.
-Testes Unitários: Implementados para garantir a qualidade e robustez do código.
+Testes Unitários: Implementados para garantir a qualidade e robustez do código fico muito bom.
 <h2>Execução</h2>
 Clone este repositório para o seu ambiente local.
 Configure as conexões com o banco de dados e a API no arquivo de configuração do projeto.
