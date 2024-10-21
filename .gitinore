@@ -1,0 +1,35 @@
+# Ignorar arquivos de build
+/bin/
+/obj/
+
+# Ignorar arquivos de pacotes
+*.nupkg
+*.snupkg
+*.dll
+*.exe
+
+# Ignorar arquivos de configuração do IDE
+.vs/
+*.user
+*.suo
+
+# Ignorar arquivos temporários
+*.tmp
+*.temp
+*.log
+*.vs/
+
+# Ignorar dependências
+/packages/
+node_modules/
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de ambiente
+*.env
+*.env.local
+
+# Ignore pastas de cache
+/.cache/
