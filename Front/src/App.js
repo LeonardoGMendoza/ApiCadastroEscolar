@@ -29,9 +29,11 @@ function App() {
     setError(null);
     try {
       const response = await axios.get(baseUrl);
-      setData(response.data);
+      const fetchedStudents = response.data.$values || []; // Ajuste aqui para extrair $values
+      console.log("Fetched students:", fetchedStudents); // Log dos alunos recebidos
+      setData(fetchedStudents);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching students:", error);
       setError("Erro ao carregar os dados.");
     } finally {
       setLoading(false);
@@ -42,14 +44,16 @@ function App() {
   const getAllSubjects = async () => {
     try {
       const response = await axios.get("https://localhost:7184/Subjects");
-      console.log("Matérias recebidas:", response.data); // Log da resposta da API
-      setAllSubjects(response.data);
+      const fetchedSubjects = response.data.$values || []; // Ajuste aqui para extrair $values
+      console.log("Matérias recebidas:", fetchedSubjects); // Log da resposta da API
+      setAllSubjects(fetchedSubjects);
     } catch (error) {
       console.error("Erro ao buscar as matérias:", error);
     }
   };
 
   useEffect(() => {
+    console.log("Fetching students and subjects...");
     pedidoGet();
     getAllSubjects(); // Carregar as matérias disponíveis
   }, []);
@@ -58,12 +62,14 @@ function App() {
   const handleSubmit = async () => {
     try {
       if (aluno.id) {
+        console.log("Updating student:", aluno);
         await axios.put(`${baseUrl}/${aluno.id}`, aluno);
       } else {
+        console.log("Creating new student:", aluno);
         await axios.post(baseUrl, aluno);
       }
       toggleModal();
-      pedidoGet();
+      await pedidoGet(); // Chame a função de busca de alunos após criar ou atualizar
     } catch (error) {
       console.error("Erro ao salvar aluno:", error);
     }
@@ -73,12 +79,14 @@ function App() {
   const handleSubmitSubject = async () => {
     try {
       if (subject.id) {
+        console.log("Updating subject:", subject);
         await axios.put(`https://localhost:7184/Subjects/${subject.id}`, subject);
       } else {
+        console.log("Creating new subject:", subject);
         await axios.post("https://localhost:7184/Subjects", subject);
       }
       toggleSubjectModal();
-      getAllSubjects(); // Atualizar lista de matérias após criar/editar
+      await getAllSubjects(); // Atualizar lista de matérias após criar/editar
     } catch (error) {
       console.error("Erro ao salvar matéria:", error);
     }
@@ -92,7 +100,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${baseUrl}/${id}`);
-      pedidoGet();
+      await pedidoGet(); // Recarregar alunos após exclusão
     } catch (error) {
       console.error("Erro ao excluir aluno:", error);
     }
@@ -101,7 +109,7 @@ function App() {
   const handleDeleteSubject = async (id) => {
     try {
       await axios.delete(`https://localhost:7184/Subjects/${id}`);
-      getAllSubjects();
+      await getAllSubjects(); // Atualizar lista de matérias após exclusão
     } catch (error) {
       console.error("Erro ao excluir matéria:", error);
     }
@@ -128,7 +136,7 @@ function App() {
             <th>Height</th>
             <th>Weight</th>
             <th>Nota</th>
-            <th>Matérias</th> {/* Nova coluna de matérias */}
+            <th>Matérias</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -146,7 +154,7 @@ function App() {
                   {aluno.subjects && aluno.subjects.length > 0
                     ? aluno.subjects.map(subj => subj.subjectName).join(', ')
                     : 'Sem matérias'}
-                </td> {/* Exibe as matérias associadas ao aluno */}
+                </td>
                 <td>
                   <button className="btn btn-primary" onClick={() => handleEdit(aluno)}>Editar</button>
                   <button className="btn btn-danger" onClick={() => handleDelete(aluno.id)}>Excluir</button>
@@ -194,12 +202,11 @@ function App() {
 
       {/* Modal para criar/editar matéria */}
       <Modal isOpen={subjectModal} toggle={toggleSubjectModal}>
-        <ModalHeader toggle={toggleSubjectModal}> {subject.id ? 'Editar Matéria' : 'Cadastrar Matéria'} </ModalHeader>
+        <ModalHeader toggle={toggleSubjectModal}>{subject.id ? 'Editar Matéria' : 'Cadastrar Matéria'}</ModalHeader>
         <ModalBody>
           <div className="form-group">
             <label>Nome da Matéria:</label>
-            <input 
-              type="text" 
+            <input type="text" 
               className="form-control" 
               value={subject.subjectName} 
               onChange={(e) => setSubject({ ...subject, subjectName: e.target.value })} 
@@ -211,36 +218,6 @@ function App() {
           <button className="btn btn-secondary" onClick={toggleSubjectModal}>Cancelar</button>
         </ModalFooter>
       </Modal>
-
-      {/* Tabela de Matérias */}
-      <h3>Lista de Matérias</h3>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nome da Matéria</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allSubjects.length > 0 ? (
-            allSubjects.map(subject => (
-              <tr key={subject.id}>
-                <td>{subject.id}</td>
-                <td>{subject.subjectName}</td>
-                <td>
-                  <button className="btn btn-primary" onClick={() => { setSubject(subject); toggleSubjectModal(); }}>Editar</button>
-                  <button className="btn btn-danger" onClick={() => handleDeleteSubject(subject.id)}>Excluir</button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="3">Nenhuma matéria encontrada.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
     </div>
   );
 }
