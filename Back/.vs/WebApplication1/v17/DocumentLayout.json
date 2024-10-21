@@ -1,0 +1,153 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{103EB887-727E-44AC-88CF-15292BA0399E}|WebApplication1\\WebApplication1.csproj|c:\\users\\leonardo\\source\\repos\\apicadastroescolar\\back\\webapplication1\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{103EB887-727E-44AC-88CF-15292BA0399E}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FAEC0F88-132B-4C21-AAB3-B7BF80C40F6C}|WebApplication1.Repository\\WebApplication1.Repository.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.repository\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FAEC0F88-132B-4C21-AAB3-B7BF80C40F6C}|WebApplication1.Repository\\WebApplication1.Repository.csproj|solutionrelative:webapplication1.repository\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{687EADA8-30F5-4167-87C3-106B11606217}|WebApplication1.Business\\WebApplication1.Business.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.business\\studentbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{687EADA8-30F5-4167-87C3-106B11606217}|WebApplication1.Business\\WebApplication1.Business.csproj|solutionrelative:webapplication1.business\\studentbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.model\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|solutionrelative:webapplication1.model\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.model\\interfaces\\istudentbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|solutionrelative:webapplication1.model\\interfaces\\istudentbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|solutionrelative:webapplication1.model\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1.model\\studentsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEE7C92D-31D1-46F9-8E25-6135CDA92120}|WebApplication1.Model\\WebApplication1.Model.csproj|solutionrelative:webapplication1.model\\studentsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{103EB887-727E-44AC-88CF-15292BA0399E}|WebApplication1\\WebApplication1.csproj|C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{103EB887-727E-44AC-88CF-15292BA0399E}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IStudentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Interfaces\\IStudentRepository.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Model\\Interfaces\\IStudentRepository.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Interfaces\\IStudentRepository.cs",
+              "RelativeToolTip": "WebApplication1.Model\\Interfaces\\IStudentRepository.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAwwBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T14:15:49.315Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IStudentBusiness.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Interfaces\\IStudentBusiness.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Model\\Interfaces\\IStudentBusiness.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Interfaces\\IStudentBusiness.cs",
+              "RelativeToolTip": "WebApplication1.Model\\Interfaces\\IStudentBusiness.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAA0wBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T14:07:40.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentBusiness.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Business\\StudentBusiness.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Business\\StudentBusiness.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Business\\StudentBusiness.cs",
+              "RelativeToolTip": "WebApplication1.Business\\StudentBusiness.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAADcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T14:06:30.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Student.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Model\\Student.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\Student.cs",
+              "RelativeToolTip": "WebApplication1.Model\\Student.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T13:35:25.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Repository\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Repository\\StudentRepository.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Repository\\StudentRepository.cs",
+              "RelativeToolTip": "WebApplication1.Repository\\StudentRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T13:25:43.444Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1\\Program.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1\\Program.cs",
+              "RelativeToolTip": "WebApplication1\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADEAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T03:13:40.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StudentSubject.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\StudentSubject.cs",
+              "RelativeDocumentMoniker": "WebApplication1.Model\\StudentSubject.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1.Model\\StudentSubject.cs",
+              "RelativeToolTip": "WebApplication1.Model\\StudentSubject.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAcwCUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T00:49:29.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StudentsController.cs",
+              "DocumentMoniker": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1\\Controllers\\StudentsController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\StudentsController.cs",
+              "ToolTip": "C:\\Users\\LEONARDO\\source\\repos\\ApiCadastroEscolar\\Back\\WebApplication1\\Controllers\\StudentsController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\StudentsController.cs",
+              "ViewState": "AQIAAKoAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T00:43:20.562Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
