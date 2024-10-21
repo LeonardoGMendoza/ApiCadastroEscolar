@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Model;
 using WebApplication1.Model.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebApplication1.Business;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Controllers
 {
@@ -8,21 +12,16 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
-
-        //Propiedade
         private readonly IStudentBusiness _studentBusiness;
 
-
-        //Construtor
         public StudentsController(IStudentBusiness studentBusiness)
         {
             _studentBusiness = studentBusiness;
         }
 
-
         // POST: /students
         [HttpPost]
-        public async Task<ActionResult<Student>> CreateStudent(Student student)
+        public async Task<ActionResult<Student>> CreateStudentAsync(Student student)
         {
             try
             {
@@ -31,9 +30,8 @@ namespace WebApplication1.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var createdStudent = _studentBusiness.Insert(student);
-
-                return Ok(createdStudent);
+                var createdStudent = await _studentBusiness.InsertAsync(student);
+                return CreatedAtAction(nameof(GetStudent), new { id = createdStudent.Id }, createdStudent);
             }
             catch (Exception ex)
             {
@@ -41,15 +39,13 @@ namespace WebApplication1.Controllers
             }
         }
 
-
         // GET: /students
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             try
             {
-
-                var students = _studentBusiness.GetAll();
+                var students = await _studentBusiness.GetAllAsync();
                 return Ok(students);
             }
             catch (Exception ex)
@@ -58,15 +54,13 @@ namespace WebApplication1.Controllers
             }
         }
 
-
         // GET: /students/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
             try
             {
-                var student = _studentBusiness.Get(id);
-
+                var student = await _studentBusiness.GetAsync(id);
                 if (student == null)
                 {
                     return NotFound();
@@ -80,10 +74,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-
-
-
-
         // PUT: /students/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(int id, Student student)
@@ -95,8 +85,7 @@ namespace WebApplication1.Controllers
                     return BadRequest("O ID fornecido não corresponde ao ID do estudante.");
                 }
 
-                var updated = _studentBusiness.Update(student);
-
+                var updated = await _studentBusiness.UpdateAsync(student);
                 if (!updated)
                 {
                     return NotFound();
@@ -114,24 +103,29 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // DELETE: /students/{id}
+
+        // Delete: /students/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             try
             {
-                var deleted = _studentBusiness.Delete(id);
-
+                var deleted = await _studentBusiness.DeleteAsync(id);
                 if (!deleted)
                 {
-                    return NotFound();
+                    return NotFound(); // Retornar 404 se o aluno não existir
                 }
 
-                return NoContent(); // Retorna status HTTP 204 (No Content)
+                return NoContent(); // Retornar 204 se a exclusão for bem-sucedida
             }
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (DbUpdateException dbEx) // Captura erros relacionados ao EF
+            {
+                // Aqui você pode logar o erro ou retornar a mensagem de erro interna
+                return StatusCode(500, $"Erro ao salvar as alterações: {dbEx.InnerException?.Message}");
             }
             catch (Exception ex)
             {
@@ -139,19 +133,42 @@ namespace WebApplication1.Controllers
             }
         }
 
+        // DELETE: /students/{id}
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteStudent(int id)
+        //{
+        //    try
+        //    {
+        //        var deleted = await _studentBusiness.DeleteAsync(id);
+        //        if (!deleted)
+        //        {
+        //            return NotFound(); // Retornar 404 se o aluno não existir
+        //        }
 
-        private bool StudentExists(int id)
+        //        return NoContent(); // Retornar 204 se a exclusão for bem-sucedida
+        //    }
+        //    catch (ArgumentException ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Erro interno do servidor: {ex.Message}");
+        //    }
+        //}
+
+
+        private async Task<bool> StudentExists(int id)
         {
-            return _studentBusiness.Get(id) != null;
+            return await _studentBusiness.GetAsync(id) != null;
         }
-
 
         [HttpGet("calcularsituacao/{id}")]
         public async Task<IActionResult> CalcularSituacao(int id)
         {
             try
             {
-                var result = _studentBusiness.CalcularSituacao(id);
+                var result = await _studentBusiness.CalcularSituacaoAsync(id);
                 return Ok(result);
             }
             catch (Exception ex)
