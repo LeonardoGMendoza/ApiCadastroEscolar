@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Adiciona os serviços de controle
 builder.Services.AddControllers();
 
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
+
+
 // Aprende mais sobre como configurar o Swagger/OpenAPI em https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

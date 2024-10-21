@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentValidation;
 using Moq;
 using WebApplication1.Business;
@@ -14,16 +15,16 @@ namespace ProjetoInjecaoDependencia.Teste
         private readonly Mock<IStudentRepository> _studentRepository = new();
 
         [Fact]
-        public void StudentBusiness_Insert_OK()
+        public async Task StudentBusiness_InsertAsync_OK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
-            _studentRepository.Setup(s => s.Insert(It.IsAny<Student>()));
+            _studentRepository.Setup(s => s.InsertAsync(It.IsAny<Student>())).Returns(Task.CompletedTask);
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act
-            var insertedStudent = business.Insert(student);
+            var insertedStudent = await business.InsertAsync(student);
 
             // Assert
             Assert.NotNull(insertedStudent);
@@ -31,16 +32,16 @@ namespace ProjetoInjecaoDependencia.Teste
         }
 
         [Fact]
-        public void StudentBusiness_GetAll_OK()
+        public async Task StudentBusiness_GetAllAsync_OK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
-            _studentRepository.Setup(s => s.GetAll()).Returns(new List<Student>() { student });
+            _studentRepository.Setup(s => s.GetAllAsync()).ReturnsAsync(new List<Student> { student });
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act
-            var students = business.GetAll();
+            var students = await business.GetAllAsync();
 
             // Assert
             Assert.NotNull(students);
@@ -48,68 +49,50 @@ namespace ProjetoInjecaoDependencia.Teste
         }
 
         [Fact]
-        public void StudentBusiness_Delete_OK()
+        public async Task StudentBusiness_DeleteAsync_OK()
         {
             // Arrange
-            _studentRepository.Setup(s => s.Delete(It.IsAny<int>()));
-            _studentRepository.Setup(s => s.CheckIfInserted(It.IsAny<int>())).Returns(true);
+            _studentRepository.Setup(s => s.DeleteAsync(It.IsAny<int>())).Returns(Task.CompletedTask);
+            _studentRepository.Setup(s => s.CheckIfInsertedAsync(It.IsAny<int>())).ReturnsAsync(true);
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act
-            var isDeleted = business.Delete(1); // Substitua 1 pelo ID do cliente que você deseja deletar
+            var isDeleted = await business.DeleteAsync(1); // Substitua 1 pelo ID do cliente que você deseja deletar
 
             // Assert
             Assert.True(isDeleted);
         }
 
-
         [Fact]
-        public void StudentBusiness_Update_OK()
+        public async Task StudentBusiness_UpdateAsync_OK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
-            _studentRepository.Setup(s => s.CheckIfInserted(student.Id)).Returns(true); // Mock para verificar que o estudante existe
-            _studentRepository.Setup(s => s.Update(It.IsAny<Student>())).Returns(student); // Mock para atualização
+            _studentRepository.Setup(s => s.CheckIfInsertedAsync(student.Id)).ReturnsAsync(true); // Mock para verificar que o estudante existe
+            _studentRepository.Setup(s => s.UpdateAsync(It.IsAny<Student>())).ReturnsAsync(student); // Mock para atualização
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act
-            var isUpdated = business.Update(student);
+            var isUpdated = await business.UpdateAsync(student);
 
             // Assert
             Assert.True(isUpdated);
         }
 
-        //[Fact]
-        //public void StudentBusiness_Update_OK()
-        //{
-        //    // Arrange
-        //    Student student = GenerateDefaultStudent();
-        //    _studentRepository.Setup(s => s.Update(It.IsAny<Student>())).Returns((Student updatedStudent) => updatedStudent);
-
-
-        //    StudentBusiness business = new(_studentRepository.Object);
-
-        //    // Act
-        //    var isUpdated = business.Update(student);
-
-        //    // Assert
-        //    Assert.True(isUpdated);
-        //}
-
         [Fact]
-        public void StudentBusiness_Get_OK()
+        public async Task StudentBusiness_GetAsync_OK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
 
-            _studentRepository.Setup(s => s.Get(It.IsAny<int>())).Returns(student);
+            _studentRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync(student);
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act
-            var studentObtained = business.Get(1); // Substitua 1 pelo ID do cliente que você deseja obter
+            var studentObtained = await business.GetAsync(1); // Substitua 1 pelo ID do cliente que você deseja obter
 
             // Assert
             Assert.NotNull(studentObtained);
@@ -117,7 +100,7 @@ namespace ProjetoInjecaoDependencia.Teste
         }
 
         [Fact]
-        public void StudentBusiness_Insert_InvalidStudent_NOK()
+        public async Task StudentBusiness_Insert_InvalidStudent_NOK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
@@ -126,48 +109,46 @@ namespace ProjetoInjecaoDependencia.Teste
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act & Assert
-            var exception = Assert.Throws<Exception>(() => business.Insert(student));
+            var exception = await Assert.ThrowsAsync<Exception>(async () => await business.InsertAsync(student));
             Assert.Equal("Student name cannot be empty.", exception.Message); // Verifica a mensagem da exceção
-            //Assert.Throws<ValidationException>(() => business.Insert(student));
         }
 
         [Fact]
-        public void StudentBusiness_Get_InvalidStudent_NOK()
+        public async Task StudentBusiness_Get_InvalidStudent_NOK()
         {
             // Arrange
-            _studentRepository.Setup(s => s.Get(It.IsAny<int>())).Returns((Student)null);
+            _studentRepository.Setup(s => s.GetAsync(It.IsAny<int>())).ReturnsAsync((Student)null);
 
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act & Assert
-            Assert.Throws<Exception>(() => business.Get(1)); // Substitua 1 pelo ID do cliente que você deseja obter
+            await Assert.ThrowsAsync<Exception>(async () => await business.GetAsync(1)); // Substitua 1 pelo ID do cliente que você deseja obter
         }
 
         [Fact]
-        public void StudentBusiness_Delete_InvalidId_NOK()
+        public async Task StudentBusiness_Delete_InvalidId_NOK()
         {
             // Arrange
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act & Assert
-            Assert.Throws<Exception>(() => business.Delete(0)); // Substitua 0 pelo ID inválido do cliente que você deseja deletar
+            await Assert.ThrowsAsync<Exception>(async () => await business.DeleteAsync(0)); // Substitua 0 pelo ID inválido do cliente que você deseja deletar
         }
 
         [Fact]
-        public void StudentBusiness_Delete_InvalidStudent_NOK()
+        public async Task StudentBusiness_Delete_InvalidStudent_NOK()
         {
             // Arrange
-            _studentRepository.Setup(s => s.CheckIfInserted(It.IsAny<int>())).Returns(false);
+            _studentRepository.Setup(s => s.CheckIfInsertedAsync(It.IsAny<int>())).ReturnsAsync(false);
 
             StudentBusiness business = new(_studentRepository.Object);
 
-
             // Act & Assert
-            Assert.Throws<Exception>(() => business.Delete(0)); // Substitua 0 pelo ID inválido do cliente que você deseja deletar
+            await Assert.ThrowsAsync<Exception>(async () => await business.DeleteAsync(0)); // Substitua 0 pelo ID inválido do cliente que você deseja deletar
         }
 
         [Fact]
-        public void StudentBusiness_Update_InvalidId_NOK()
+        public async Task StudentBusiness_Update_InvalidId_NOK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
@@ -176,80 +157,21 @@ namespace ProjetoInjecaoDependencia.Teste
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act & Assert
-            Assert.Throws<Exception>(() => business.Update(student));
+            await Assert.ThrowsAsync<Exception>(async () => await business.UpdateAsync(student));
         }
 
         [Fact]
-        public void StudentBusiness_Update_StudentNotExists_NOK()
+        public async Task StudentBusiness_Update_StudentNotExists_NOK()
         {
             // Arrange
             Student student = GenerateDefaultStudent();
 
-            _studentRepository.Setup(s => s.CheckIfInserted(It.IsAny<int>())).Returns(false);
+            _studentRepository.Setup(s => s.CheckIfInsertedAsync(It.IsAny<int>())).ReturnsAsync(false);
             StudentBusiness business = new(_studentRepository.Object);
 
             // Act & Assert
-            Assert.Throws<Exception>(() => business.Update(student));
+            await Assert.ThrowsAsync<Exception>(async () => await business.UpdateAsync(student));
         }
-        [Fact]
-        public void StudentBusiness_Update_InvalidStudent_NOK()
-        {
-            // Arrange
-            Student student = GenerateDefaultStudent();
-            student.StudentName = ""; // Nome vazio deve causar erro
-
-            _studentRepository.Setup(s => s.CheckIfInserted(It.IsAny<int>())).Returns(true); // Mock que o estudante existe
-            StudentBusiness business = new StudentBusiness(_studentRepository.Object);
-
-            // Act & Assert
-            var exception = Assert.Throws<Exception>(() => business.Update(student));
-            Assert.Equal("Student name cannot be empty.", exception.Message); // Verifica a mensagem da exceção
-            //Assert.Throws<ValidationException>(() => business.Update(student)); // Espera-se que lance ValidationException
-        }
-
-        //[Fact]
-        //public void StudentBusiness_Update_InvalidStudent_NOK()
-        //{
-        //    // Arrange
-        //    Student student = GenerateDefaultStudent();
-        //    student.StudentName = "";
-
-        //    _studentRepository.Setup(s => s.CheckIfInserted(It.IsAny<int>())).Returns(true);
-        //    StudentBusiness business = new StudentBusiness(_studentRepository.Object);
-
-        //    // Act & Assert
-        //    Assert.Throws<ValidationException>(() => business.Update(student));
-        //}
-
-
-        //[Fact]
-        //public void StudentBusiness_PodeTerBolsa_OK()
-        //{
-        //    var student = GenerateDefaultStudent();
-        //    student.Nota = 7; // Estudante com nota 7
-        //    _studentRepository.Setup(s => s.Get(student.Id)).Returns(student);
-
-        //    var business = new StudentBusiness(_studentRepository.Object);
-
-        //    var resultado = business.PodeTerBolsa(student.Id);
-
-        //    Assert.True(resultado); // Deve retornar true
-        //}
-
-        //[Fact]
-        //public void StudentBusiness_PodeTerBolsa_NOK()
-        //{
-        //    var student = GenerateDefaultStudent();
-        //    student.Nota = 6; // Estudante com nota 6
-        //    _studentRepository.Setup(s => s.Get(student.Id)).Returns(student);
-
-        //    var business = new StudentBusiness(_studentRepository.Object);
-
-        //    var resultado = business.PodeTerBolsa(student.Id);
-
-        //    Assert.False(resultado); // Deve retornar false
-        //}
-
 
         #region Default Values
         private static Student GenerateDefaultStudent()

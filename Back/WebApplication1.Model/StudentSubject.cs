@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Text.Json.Serialization;
 
 namespace WebApplication1.Model
 {
@@ -8,6 +9,7 @@ namespace WebApplication1.Model
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
 
+        [JsonIgnore]
         public Student Student { get; set; }
         public Subject Subject { get; set; }
 

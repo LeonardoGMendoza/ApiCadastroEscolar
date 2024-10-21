@@ -10,110 +10,88 @@ namespace WebApplication1.Business
     {
         private readonly IStudentRepository _studentRepository;
 
+        // Construtor que recebe o repositório de estudantes
         public StudentBusiness(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;
         }
 
-        public Student Insert(Student student)
+        // Método para inserir um estudante
+        public async Task<Student> InsertAsync(Student student)
         {
-            // Validação do nome do estudante
-            if (string.IsNullOrWhiteSpace(student.StudentName))
-            {
-                throw new Exception("Student name cannot be empty."); // Lançando uma exceção personalizada
-            }
-            _studentRepository.Insert(student);
-            return student;
+            ValidateStudent(student); // Valida o estudante
+            await _studentRepository.InsertAsync(student); // Insere no repositório
+            return student; // Retorna o estudante inserido
         }
 
-        public List<Student> GetAll()
+        // Método para obter todos os estudantes
+        public async Task<List<Student>> GetAllAsync()
         {
-            return _studentRepository.GetAll();
+            return await _studentRepository.GetAllAsync(); // Retorna a lista de estudantes
         }
 
-        public Student Get(int id)
+        // Método para obter um estudante pelo ID
+        public async Task<Student> GetAsync(int id)
         {
-            Student student = _studentRepository.Get(id);
+            var student = await _studentRepository.GetAsync(id); // Busca o estudante pelo ID
             if (student == null)
             {
-                throw new Exception($"There is not a student with the id: {id}. Try again.");
+                throw new Exception($"Não existe um estudante com o ID: {id}. Tente novamente."); // Exceção se não encontrado
             }
-            return student;
+            return student; // Retorna o estudante
         }
 
-        public bool Update(Student student)
+        // Método para atualizar um estudante
+        public async Task<bool> UpdateAsync(Student student)
         {
-            if (student.Id == 0 || !_studentRepository.CheckIfInserted(student.Id))
-
-            //if (student.Id.Equals(Guid.Empty) || !_studentRepository.CheckIfInserted(student.Id))
+            // Verifica se o estudante existe
+            if (student.Id == 0 || !await _studentRepository.CheckIfInsertedAsync(student.Id))
             {
-                throw new Exception("Please, inform a valid student.");
+                throw new Exception("Por favor, informe um estudante válido."); // Exceção se inválido
             }
 
-            // Validação do nome do estudante
-            if (string.IsNullOrWhiteSpace(student.StudentName))
-            {
-                throw new Exception("Student name cannot be empty."); // Lançando uma exceção personalizada
-            }
-
-            _studentRepository.Update(student);
-            return true;
+            ValidateStudent(student); // Valida o estudante
+            await _studentRepository.UpdateAsync(student); // Atualiza no repositório
+            return true; // Retorna verdadeiro se a atualização for bem-sucedida
         }
 
-        public bool Delete(int id)
+        // Método para excluir um estudante
+        public async Task<bool> DeleteAsync(int id)
         {
-            if (id.Equals(Guid.Empty))
+            if (id <= 0)
             {
-                throw new Exception("Please, inform a valid Id.");
+                throw new Exception("Por favor, informe um ID válido."); // Exceção se ID inválido
             }
 
-            if (!_studentRepository.CheckIfInserted(id))
+            // Verifica se o estudante existe
+            if (!await _studentRepository.CheckIfInsertedAsync(id))
             {
-                throw new Exception($"The student with id {id} was not found. Please, try again.");
+                throw new Exception($"O estudante com o ID {id} não foi encontrado. Por favor, tente novamente."); // Exceção se não encontrado
             }
 
-            _studentRepository.Delete(id);
-            return true;
+            await _studentRepository.DeleteAsync(id); // Exclui do repositório
+            return true; // Retorna verdadeiro se a exclusão for bem-sucedida
         }
 
-
-
-        public int CalcularSituacao(int id)
+        // Método para calcular a situação do estudante
+        public async Task<int> CalcularSituacaoAsync(int id)
         {
-            var student = _studentRepository.Get(id);
-
+            var student = await _studentRepository.GetAsync(id); // Busca o estudante
             if (student == null)
             {
-                throw new ArgumentException($"Estudante com ID {id} não encontrado.");
+                throw new ArgumentException($"Estudante com ID {id} não encontrado."); // Exceção se não encontrado
             }
 
-            // Defina a nota mínima de aprovação
-            int notaMinimaAprovacao = 60;
-
-            // Verifique se a nota do estudante é maior ou igual à nota mínima de aprovação
-            if (student.Nota >= notaMinimaAprovacao)
-            {
-                // Se a nota for maior ou igual à nota mínima, o estudante está aprovado
-                return 1; // 1 representa "Aprovado"
-            }
-            else
-            {
-                // Caso contrário, o estudante está reprovado
-                return 0; // 0 representa "Reprovado"
-            }
+            return student.Nota >= 60 ? 1 : 0; // Retorna 1 se aprovado, 0 se reprovado
         }
 
-        //public bool PodeTerBolsa(int id)
-        //{
-        //    var student = _studentRepository.Get(id); // Obtemos o estudante pelo ID
-        //    if (student == null) // Verificamos se o estudante existe
-        //    {
-        //        throw new ArgumentException($"student why ID {id} not search.");
-        //    }
-
-        //    return student.Nota >= 7; // Retorna true se a média for >= 7, caso contrário, false
-        //}
-
-
+        // Método privado para validar os dados do estudante
+        private void ValidateStudent(Student student)
+        {
+            if (string.IsNullOrWhiteSpace(student.StudentName))
+            {
+                throw new Exception("O nome do estudante não pode estar vazio."); // Exceção se o nome estiver vazio
+            }
+        }
     }
 }
